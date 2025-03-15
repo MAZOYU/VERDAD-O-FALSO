@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minijuego: ¿Verdadero o Falso?</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            background: linear-gradient(to right, #4CAF50, #2E7D32);
+            color: white;
+            padding: 20px;
+        }
+        #game-container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            max-width: 500px;
+            margin: auto;
+            color: black;
+        }
+        h2 {
+            color: #2E7D32;
+        }
+        p {
+            font-size: 18px;
+        }
+        button {
+            padding: 15px 25px;
+            margin: 10px;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+        .true {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .false {
+            background-color: #f44336;
+            color: white;
+        }
+        .true:hover {
+            background-color: #388E3C;
+        }
+        .false:hover {
+            background-color: #D32F2F;
+        }
+        #feedback {
+            font-weight: bold;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="game-container">
+    <h2>¿Verdadero o Falso?</h2>
+    <p id="question">Cargando pregunta...</p>
+    <button class="true" onclick="checkAnswer(true)">Verdadero</button>
+    <button class="false" onclick="checkAnswer(false)">Falso</button>
+    <p id="feedback"></p>
+</div>
+
+<script>
+    const questions = [
+        { question: "El cacao se usaba como moneda en Mesoamérica.", answer: true },
+        { question: "Los mixtecos nunca tuvieron un sistema de escritura.", answer: false },
+        { question: "Azoyú es conocido por su relación con la cultura mezcala.", answer: false },
+        { question: "La Costa Chica de Guerrero tiene una fuerte influencia afromexicana.", answer: true }
+    ];
+
+    let currentQuestionIndex = 0;
+
+    function loadQuestion() {
+        document.getElementById("question").textContent = questions[currentQuestionIndex].question;
+        document.getElementById("feedback").textContent = "";
+    }
+
+    function checkAnswer(userAnswer) {
+        if (userAnswer === questions[currentQuestionIndex].answer) {
+            document.getElementById("feedback").textContent = "✅ ¡Correcto!";
+            document.getElementById("feedback").style.color = "green";
+        } else {
+            document.getElementById("feedback").textContent = "❌ Incorrecto. Intenta de nuevo.";
+            document.getElementById("feedback").style.color = "red";
+        }
+
+        setTimeout(() => {
+            currentQuestionIndex = (currentQuestionIndex + 1) % questions.length;
+            loadQuestion();
+        }, 1500);
+    }
+
+    loadQuestion();
+</script>
+
+</body>
+</html>
